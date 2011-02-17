@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.amrscustomization">
+
+    <class name="MRNGeneratorLogEntry" table="amrscustomization_mrn_log">
+
+        <id name="entryId" type="java.lang.Integer" column="mrn_log_id" unsaved-value="0">
+            <generator class="native"/>
+        </id>
+
+        <discriminator column="entry_id" insert="false"/>
+
+        <property name="dateGenerated" type="java.util.Date" column="date_generated" length="19"/>
+
+        <many-to-one name="generatedBy" class="org.openmrs.User" column="generated_by"/>
+
+        <property name="site" type="java.lang.String" length="50"/>
+
+        <property name="first" type="java.lang.Integer"/>
+
+        <property name="count" type="java.lang.Integer"/>
+
+        <property name="uuid" type="java.lang.String"
+                  column="uuid" length="38" unique="true" not-null="true"/>
+
+    </class>
+
+</hibernate-mapping>
