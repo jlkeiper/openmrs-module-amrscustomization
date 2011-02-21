@@ -1,0 +1,33 @@
+/** custom stylesheet for AMRS **/
+
+#patientHeaderObs {
+        display: none;
+}
+
+#patientHeaderPatientIdentifiers, #patientHeaderPatientAge, #patientHeaderPatientTribe {
+        font-size: 1.2em;
+}
+
+#patientHeaderPatientSummary {
+        display: none;
+}
+
+/** fix weird tab underline thing **/
+#patientTabs {
+	font-size: 0.8em;
+}
+
+/**
+#navList {
+        background-color: blue;
+}
+
+#gutter {
+        border-color: #003366;
+}
+
+#banner {
+        margin-top: 1px;
+        z-index: 5;
+}
+**/

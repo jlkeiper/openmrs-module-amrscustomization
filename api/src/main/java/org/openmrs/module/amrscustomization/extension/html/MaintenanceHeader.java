@@ -23,7 +23,7 @@ import org.openmrs.module.web.extension.AdministrationSectionExt;
 /**
  * links to be injected in the Maintenance section of the Admin page
  */
-public class MaintenanceList extends AdministrationSectionExt {
+public class MaintenanceHeader extends AdministrationSectionExt {
 	
 	/**
 	 * @see org.openmrs.module.web.extension.AdministrationSectionExt#getMediaType()
