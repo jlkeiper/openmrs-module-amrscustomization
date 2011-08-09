@@ -37,12 +37,12 @@
 		<class>@MODULE_PACKAGE@.extension.html.FullHeaderInclude</class>
 	</extension>
 	
-	<!-- AOP
+	<!-- AOP -->
 	<advice>
-		<point>org.openmrs.api.FormService</point>
-		<class>@MODULE_PACKAGE@.advice.DuplicateFormAdvisor</class>
+		<point>org.openmrs.api.UserService</point>
+		<class>@MODULE_PACKAGE@.advice.BeforeGetUsersAdvice</class>
 	</advice>
-	 /AOP -->
+	<!-- /AOP -->
 	
 	
 	<!-- Required Privileges 
@@ -53,17 +53,17 @@
 	 /Required Privileges -->
 
 
-	<!-- Required Global Properties 
+	<!-- Required Global Properties -->
 	<globalProperty>
-		<property>@MODULE_ID@.someProperty</property>
-		<defaultValue></defaultValue>
+		<property>@MODULE_ID@.maxUploadSize</property>
+		<defaultValue>75000000</defaultValue>
 		<description>
-			A description of the global property goes here.  The description
-			should explain enough for administrators to understand the purpose
-			and possible values for the global property.
+			This value will be used as the maximum upload size for 
+                        all file transfers to OpenMRS.  The AMRS Customization
+                        Module must be reloaded before this setting will take effect.
 		</description>
 	</globalProperty>
-	/Required Global Properties -->
+	<!-- /Required Global Properties -->
 	
 	<!--
 	<dwr>

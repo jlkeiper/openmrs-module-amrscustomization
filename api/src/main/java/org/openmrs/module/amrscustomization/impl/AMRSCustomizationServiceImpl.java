@@ -19,15 +19,23 @@ import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.GlobalProperty;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.context.ServiceContext;
+import org.openmrs.module.amrscustomization.AMRSCustomizationConstants;
 import org.openmrs.module.amrscustomization.AMRSCustomizationDAO;
 import org.openmrs.module.amrscustomization.AMRSCustomizationService;
 import org.openmrs.module.amrscustomization.MRNGeneratorLogEntry;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
  * implementation of the AMRS Customization service
  */
+@Controller
+@RequestMapping("module/amrscustomization/settings.htm")
 public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
 	
 	protected Log log = LogFactory.getLog(getClass());
@@ -63,5 +71,38 @@ public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
 	public List<MRNGeneratorLogEntry> getMRNGeneratorLogEntries() throws APIException {
 		return dao.getMRNGeneratorLogEntries();
 	}
+ 
+        private void saveMaxUploadSize(Integer maxUploadSize) {
+                GlobalProperty gp = Context.getAdministrationService().getGlobalPropertyObject(AMRSCustomizationConstants.GP_MAX_UPLOAD_SIZE);
+                gp.setPropertyValue(Integer.toString(maxUploadSize));
+                Context.getAdministrationService().saveGlobalProperty(gp);
+        }
+        
+        /**
+         *  set the maximum upload size, for Remote Form Entry and Clinical Summary Modules
+         */
+        public void setMaxUploadSize(Integer maxUploadSize) {
+                List<CommonsMultipartResolver> resolvers = 
+                        ServiceContext.getInstance().getRegisteredComponents(CommonsMultipartResolver.class);
+                for (CommonsMultipartResolver resolver : resolvers) {
+                        resolver.setMaxUploadSize(maxUploadSize);
+                }
+                this.saveMaxUploadSize(maxUploadSize);
+        }
+
+        public void reloadMaxUploadSize() {
+                String maxSizeString = Context.getAdministrationService().getGlobalProperty(AMRSCustomizationConstants.GP_MAX_UPLOAD_SIZE);
+                Integer maxSize;
+                try {
+                        maxSize = Integer.parseInt(maxSizeString);
+                } catch (NumberFormatException e) {
+                        log.error("could not interpret \"" + 
+                                maxSizeString + 
+                                "\" as an integer for " + 
+                                AMRSCustomizationConstants.GP_MAX_UPLOAD_SIZE);
+                        maxSize = AMRSCustomizationConstants.DEFAULT_MAX_UPLOAD_SIZE;
+                }
+                this.setMaxUploadSize(maxSize);
+        }
 	
 }
