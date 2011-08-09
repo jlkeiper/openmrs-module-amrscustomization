@@ -38,52 +38,62 @@
 			<td rowspan="4" align="left" valign="top">
 				<label for="site"><spring:message code="amrscustomization.MRNGenerator.select.site"/></label><br/>
 				<select name="site" size="24">
-					<optgroup label="Group A sites">
-						<option value="BF">BF - Burnt Forest</option>
-						<option value="MO">MO - Mosoriot</option>
-						<option value="MT">MT - MTRH Adult</option>
-						<option value="MP">MP - MTRH Pediatric</option>
-						<option value="TU">TU - Turbo</option>
-					</optgroup>
-					<optgroup label="Group B sites">
-						<option value="AM">AM - Amukura</option>
-						<option value="AN">AN - Anderson</option>
-                        <option value="AS">AS - Amase</option>
-                        <option value="BB">BB - Bumala B</option>
-                        <option value="BC">BC - Tambach</option>
-                        <option value="BK">BK - Obekae</option>
-						<option value="BM">BM - Bumala A</option>
-						<option value="BS">BS - Busia</option>
-						<option value="CH">CH - Chulaimbo</option>
-						<option value="DH">DH - Uasin Gishu District Hospital</option>
-				        <option value="DN">DN - AIC Diguna Royal Toto Childrens Home, Ngechek</option>
-						<option value="EG">EG - Mt. Elgon Clinic</option>
-						<option value="KB">KB - Kabarnet</option>
-						<option value="KH">KH - Khuyangu</option>
-						<option value="KP">KP - Kapenguria</option>
-						<option value="KS">KS - Kibisi</option>
- 						<option value="KT">KT - Kitale</option>
-						<option value="MB">MB - Moi's Bridge</option>
-						<option value="MH">MH - Mukhobola</option>
-						<option value="MK">MK - Makutano</option>
-						<option value="MU">MU - Moi University</option>
-						<option value="NM">NM - Nambale</option>
-						<option value="NT">NT - Naitiri</option>
-						<option value="PV">PV - Port Victoria</option>
-						<option value="SB">SB - Saboti</option>
-						<option value="SN">SN - Sango</option>
-						<option value="SY">SY - Soy</option>
-						<option value="TE">TE - Iten</option>
-						<option value="TN">TN - Tenges</option>
-						<option value="TS">TS - Teso</option>
-						<option value="WB">WB - Webuye</option>
-						<option value="ZW">ZW - Ziwa</option>
-					</optgroup>
-					<optgroup label="Other sites">
-						<option value="HC">HC - Highway Clinic</option>
-						<option value="PM">PM - PMTCT</option>
-						<option value="VC">VC - OVC</option>
-					</optgroup>
+                                        <optgroup label="Group A sites">
+                                                <option value="BF">BF - Burnt Forest</option>
+                                                <option value="MO">MO - Mosoriot</option>
+                                                <option value="MT">MT - MTRH Adult</option>
+                                                <option value="MP">MP - MTRH Pediatric</option>
+                                                <option value="TU">TU - Turbo</option>
+                                        </optgroup>
+                                        <optgroup label="Group B sites">
+                                                <option value="AM">AM - Amukura</option>
+                                                <option value="AN">AN - Anderson</option>
+                                                <option value="AS">AS - Amase</option>
+                                                <option value="BB">BB - Bumala B</option>
+                                                <option value="BC">BC - Tambach</option>
+                                                <option value="BK">BK - Obekae</option>
+                                                <option value="BM">BM - Bumala A</option>
+                                                <option value="BS">BS - Busia</option>
+                                                <option value="CH">CH - Chulaimbo</option>
+                                                <option value="CR">CR - Changara</option>
+                                                <option value="DH">DH - Uasin Gishu District Hospital</option>
+                                                <option value="DN">DN - AIC Diguna Royal Toto Childrens Home, Ngechek</option>
+                                                <option value="EG">EG - Mt. Elgon Clinic</option>
+                                                <option value="GB">GB - Elgeyo Border</option>
+                                                <option value="KB">KB - Kabarnet</option>
+                                                <option value="KH">KH - Khuyangu</option>
+                                                <option value="KP">KP - Kapenguria</option>
+                                                <option value="KS">KS - Kopsiro</option>
+                                                <option value="KW">KW - Kibisi</option>
+                                                <option value="KT">KT - Kitale</option>
+                                                <option value="LP">LP - Lupida</option>
+                                                <option value="MA">MA - Malaba</option>
+                                                <option value="MB">MB - Moi's Bridge</option>
+                                                <option value="MH">MH - Mukhobola</option>
+                                                <option value="MK">MK - Makutano</option>
+                                                <option value="MU">MU - Moi University</option>
+                                                <option value="NM">NM - Nambale</option>
+                                                <option value="NT">NT - Naitiri</option>
+                                                <option value="PV">PV - Port Victoria</option>
+                                                <option value="RA">RA - Riat</option>
+                                                <option value="RT">RT - Sio Port</option>
+                                                <option value="SB">SB - Saboti</option>
+                                                <option value="SE">SE - Osieko</option>
+                                                <option value="SG">SG - Sunga</option>
+                                                <option value="SN">SN - Sango</option>
+                                                <option value="SY">SY - Soy</option>
+                                                <option value="TE">TE - Iten</option>
+                                                <option value="TN">TN - Tenges</option>
+                                                <option value="TS">TS - Teso</option>
+                                                <option value="TW">TW - Tulwet</option>
+                                                <option value="WB">WB - Webuye</option>
+                                                <option value="ZW">ZW - Ziwa</option>
+                                        </optgroup>
+                                        <optgroup label="Other sites">
+                                                <option value="HC">HC - Highway Clinic</option>
+                                                <option value="PM">PM - PMTCT</option>
+                                                <option value="VC">VC - OVC</option>
+                                        </optgroup>
 				</select>
 			</td>
 			<td align="left" valign="top">
