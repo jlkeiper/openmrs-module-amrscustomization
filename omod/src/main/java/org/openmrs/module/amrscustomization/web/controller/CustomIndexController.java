@@ -16,7 +16,7 @@ public class CustomIndexController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String mrnGeneratorForm(ModelMap modelMap) {
+	public String getCustomIndex(ModelMap modelMap) {
 		return "module/amrscustomization/customIndex";
 	}
 

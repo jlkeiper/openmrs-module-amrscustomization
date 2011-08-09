@@ -15,7 +15,7 @@
 
 <c:if test="${not anyExtension}">
 <center>
-	<img src="${pageContext.request.contextPath}<spring:theme code="image.logo.large" text="/images/openmrs_logo_white_large.png"/>" alt='<spring:message code="openmrs.title"/>' title='<spring:message code="openmrs.title"/>'/>
+	<img src="${pageContext.request.contextPath}/moduleResources/amrscustomization/ribbon.jpg" alt='<spring:message code="openmrs.title"/>' title='<spring:message code="openmrs.title"/>'/>
 	<br/><br/><br/>
 	<openmrs:portlet url="welcome" parameters="showName=true|showLogin=true|redirect=${pageContext.request.contextPath}/findPatient.htm" />
 </center>
