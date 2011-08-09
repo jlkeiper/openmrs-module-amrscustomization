@@ -12,22 +12,10 @@
         display: none;
 }
 
-/** fix weird tab underline thing **/
-#patientTabs {
-	font-size: 0.8em;
+/** fix should be in 1.8.3 **/
+#userBar {
+	float: right;
+	right: 5px;
+        width: auto;
+        position: inherit;
 }
-
-/**
-#navList {
-        background-color: blue;
-}
-
-#gutter {
-        border-color: #003366;
-}
-
-#banner {
-        margin-top: 1px;
-        z-index: 5;
-}
-**/
