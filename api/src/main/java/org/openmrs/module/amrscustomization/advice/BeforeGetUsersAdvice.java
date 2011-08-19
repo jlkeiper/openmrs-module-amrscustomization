@@ -16,8 +16,8 @@ import org.openmrs.api.context.Context;
 import org.springframework.aop.MethodBeforeAdvice;
 
 /**
- *
- * @author jkeiper
+ * Provide advice before the getUsers() method call, so the set of rules is
+ * properly populated with descendant roles.
  */
 public class BeforeGetUsersAdvice implements MethodBeforeAdvice {
 
@@ -36,6 +36,9 @@ public class BeforeGetUsersAdvice implements MethodBeforeAdvice {
 
                         if (args.length > 1) {
                                 List<Role> roles = (List<Role>) args[1];
+
+                                if (roles == null)
+                                    return;
 
                                 // find and add all child roles for requested roles
                                 Set<Role> allRoles = new HashSet<Role>();
