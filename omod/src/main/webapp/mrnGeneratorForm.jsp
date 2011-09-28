@@ -62,6 +62,7 @@
                                                 <option value="GB">GB - Elgeyo Border</option>
                                                 <option value="KB">KB - Kabarnet</option>
                                                 <option value="KH">KH - Khuyangu</option>
+                                                <option value="KL">KL - Kamolo</option>
                                                 <option value="KP">KP - Kapenguria</option>
                                                 <option value="KS">KS - Kopsiro</option>
                                                 <option value="KW">KW - Kibisi</option>
