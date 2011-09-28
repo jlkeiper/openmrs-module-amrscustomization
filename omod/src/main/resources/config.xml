@@ -63,6 +63,13 @@
                         Module must be reloaded before this setting will take effect.
 		</description>
 	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.preferredHL7Source</property>
+		<defaultValue></defaultValue>
+		<description>
+			Specifies the HL7 source to process first in the prioiritized HL7 queue
+		</description>
+	</globalProperty>
 	<!-- /Required Global Properties -->
 	
 	<!--

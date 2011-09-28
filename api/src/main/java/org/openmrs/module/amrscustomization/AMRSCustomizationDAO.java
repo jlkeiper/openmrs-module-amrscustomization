@@ -16,6 +16,8 @@ package org.openmrs.module.amrscustomization;
 import java.util.List;
 
 import org.openmrs.api.db.DAOException;
+import org.openmrs.hl7.HL7InQueue;
+import org.openmrs.hl7.HL7Source;
 
 /**
  * DAO for the AMRS Customization module
@@ -32,4 +34,14 @@ public interface AMRSCustomizationDAO {
 	 * @see org.openmrs.module.amrscustomization.AMRSCustomizationService#getMRNGeneratorLogEntries()
 	 */
 	public List<MRNGeneratorLogEntry> getMRNGeneratorLogEntries() throws DAOException;
+
+    /**
+     * @see org.openmrs.module.amrscustomization.AMRSCustomizationService#getNextPrioritizedHL7InQueue() 
+     */
+    public HL7InQueue getNextPrioritizedHL7InQueue(HL7Source preferredSource) throws DAOException;
+
+    /**
+     * @see org.openmrs.module.amrscustomization.AMRSCustomizationService#getNextPrioritizedHL7InQueue()
+     */
+    public HL7InQueue getNextPrioritizedHL7InQueue() throws DAOException;
 }
