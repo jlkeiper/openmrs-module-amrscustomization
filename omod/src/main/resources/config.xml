@@ -37,7 +37,17 @@
 		<class>@MODULE_PACKAGE@.extension.html.FullHeaderInclude</class>
 	</extension>
 	
-	<!-- AOP -->
+    <extension>
+    	<point>org.openmrs.admin.concepts.localHeader</point>
+		<class>@MODULE_PACKAGE@.extension.html.ConceptHeaderLinks</class>
+	</extension>
+
+    <extension>
+    	<point>org.openmrs.dictionary.conceptFormFooter</point>
+		<class>@MODULE_PACKAGE@.extension.html.ConceptFormFooterExtras</class>
+	</extension>
+
+    <!-- AOP -->
 	<advice>
 		<point>org.openmrs.api.UserService</point>
 		<class>@MODULE_PACKAGE@.advice.BeforeGetUsersAdvice</class>

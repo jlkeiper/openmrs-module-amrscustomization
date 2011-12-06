@@ -1,21 +1,21 @@
 /** custom stylesheet for AMRS **/
 
 #patientHeaderObs {
-        display: none;
+	display: none;
 }
 
 #patientHeaderPatientIdentifiers, #patientHeaderPatientAge, #patientHeaderPatientTribe {
-        font-size: 1.2em;
+	font-size: 1.2em;
 }
 
 #patientHeaderPatientSummary {
-        display: none;
+	display: none;
 }
 
 /** fix should be in 1.8.3 **/
 #userBar {
 	float: right;
 	right: 5px;
-        width: auto;
-        position: inherit;
+	width: auto;
+	position: inherit;
 }
