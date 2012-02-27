@@ -62,6 +62,7 @@
                                                 <option value="GB">GB - Elgeyo Border</option>
                                                 <option value="KB">KB - Kabarnet</option>
                                                 <option value="KH">KH - Khuyangu</option>
+                                                <option value="KN">KN - Kapteren</option>
                                                 <option value="KL">KL - Kamolo</option>
                                                 <option value="KP">KP - Kapenguria</option>
                                                 <option value="KS">KS - Kopsiro</option>
@@ -70,6 +71,7 @@
                                                 <option value="LP">LP - Lupida</option>
                                                 <option value="MA">MA - Malaba</option>
                                                 <option value="MB">MB - Moi's Bridge</option>
+                                                <option value="MD">MD - Medende</option>
                                                 <option value="MH">MH - Mukhobola</option>
                                                 <option value="MK">MK - Makutano</option>
                                                 <option value="MU">MU - Moi University</option>
