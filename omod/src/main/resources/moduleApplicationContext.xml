@@ -48,5 +48,22 @@
 			</list>
 		</property>
 	</bean>
+
+	<!-- old-school mappings ... bleh -->
+	<bean id="amrscustomizationUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="order"><value>1</value></property>
+		<property name="mappings">
+			<props>
+				<prop key="admin/concepts/conceptDrug.form">customConceptDrugForm</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="customConceptDrugForm" class="org.openmrs.module.amrscustomization.web.controller.CustomConceptDrugFormController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="commandName"><value>drug</value></property>
+		<property name="formView"><value>/module/amrscustomization/customConceptDrugForm</value></property>
+		<property name="successView"><value>conceptDrug.list</value></property>
+	</bean>
 	
 </beans>
