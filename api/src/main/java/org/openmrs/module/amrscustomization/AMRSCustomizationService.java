@@ -14,6 +14,8 @@
 package org.openmrs.module.amrscustomization;
 
 import java.util.List;
+import org.openmrs.Form;
+import org.openmrs.User;
 
 import org.openmrs.annotation.Authorized;
 import org.openmrs.hl7.HL7InQueue;
@@ -56,7 +58,18 @@ public interface AMRSCustomizationService {
      * @should return the first HL7 in the queue if no source is specified
      * @should return the first HL7 in the queue if no HL7 matches preferred source
      */
+    @Transactional(readOnly = true)
     public HL7InQueue getNextPrioritizedHL7InQueue(HL7Source source);
 
+    @Transactional(readOnly = true)
     public HL7InQueue getNextPrioritizedHL7InQueue();
+
+	/**
+	 * finds forms entered by user in the last X months.
+	 * 
+	 * @param user
+	 * @return 
+	 */
+    @Transactional(readOnly = true)
+	public List<Form> getPopularRecentFormsForUser(User user);
 }

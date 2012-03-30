@@ -47,6 +47,11 @@
 		<class>@MODULE_PACKAGE@.extension.html.ConceptFormFooterExtras</class>
 	</extension>
 
+    <extension>
+    	<point>org.openmrs.patientDashboard.FormEntryTabHeader</point>
+		<class>@MODULE_PACKAGE@.extension.html.FormsHotlist</class>
+	</extension>
+
     <!-- AOP -->
 	<advice>
 		<point>org.openmrs.api.UserService</point>
@@ -78,6 +83,13 @@
 		<defaultValue></defaultValue>
 		<description>
 			Specifies the HL7 source to process first in the prioiritized HL7 queue
+		</description>
+	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.recentFormsInterval</property>
+		<defaultValue>1</defaultValue>
+		<description>
+			How many months back to look when finding recent forms entered by users
 		</description>
 	</globalProperty>
 	<!-- /Required Global Properties -->

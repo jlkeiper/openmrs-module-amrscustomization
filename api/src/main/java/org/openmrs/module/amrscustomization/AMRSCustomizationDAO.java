@@ -14,6 +14,8 @@
 package org.openmrs.module.amrscustomization;
 
 import java.util.List;
+import org.openmrs.Form;
+import org.openmrs.User;
 
 import org.openmrs.api.db.DAOException;
 import org.openmrs.hl7.HL7InQueue;
@@ -44,4 +46,9 @@ public interface AMRSCustomizationDAO {
      * @see org.openmrs.module.amrscustomization.AMRSCustomizationService#getNextPrioritizedHL7InQueue()
      */
     public HL7InQueue getNextPrioritizedHL7InQueue() throws DAOException;
+
+    /**
+     * @see org.openmrs.module.amrscustomization.AMRSCustomizationService#getPopularRecentFormsForUser(User)
+     */
+	public List<Form> getPopularRecentFormsForUser(User user);
 }

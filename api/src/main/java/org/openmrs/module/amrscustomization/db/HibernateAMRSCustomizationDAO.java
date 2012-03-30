@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.amrscustomization.db;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -21,13 +23,16 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
+import org.openmrs.Encounter;
+import org.openmrs.Form;
+import org.openmrs.User;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.hl7.HL7Constants;
 import org.openmrs.hl7.HL7InQueue;
 import org.openmrs.hl7.HL7Source;
+import org.openmrs.module.amrscustomization.AMRSCustomizationConstants;
 import org.openmrs.module.amrscustomization.AMRSCustomizationDAO;
 import org.openmrs.module.amrscustomization.MRNGeneratorLogEntry;
 
@@ -121,6 +126,40 @@ public class HibernateAMRSCustomizationDAO implements AMRSCustomizationDAO {
 		if (query == null)
 			return null;
 		return (HL7InQueue) query.uniqueResult();
+	}
+
+	public List<Form> getPopularRecentFormsForUser(User user) {
+		String monthsStr = Context.getAdministrationService().getGlobalProperty(AMRSCustomizationConstants.GP_RECENT_FORMS_INTERVAL);
+		Integer months = AMRSCustomizationConstants.DEFAULT_RECENT_FORMS_INTERVAL;
+		try {
+			months = Integer.parseInt(monthsStr);
+		} catch (NumberFormatException ex) {
+			log.warn("could not interpret " + monthsStr + " interval as an integer.");
+		}
+		
+		Calendar monthsAgo = Calendar.getInstance();
+		monthsAgo.add(Calendar.MONTH, -1 * months);
+
+        ProjectionList projectionList = Projections.projectionList();
+        projectionList.add(Projections.groupProperty("form"));
+        projectionList.add(Projections.alias(Projections.rowCount(), "total"));
+		
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Encounter.class)
+				.add(Restrictions.and(
+					Restrictions.eq("creator", user), 
+					Restrictions.gt("dateCreated", monthsAgo.getTime())))
+				.setProjection(projectionList)
+				.addOrder(Order.desc("total"))
+				.setMaxResults(5);
+
+		List<Form> forms = new ArrayList<Form>();
+		List<Object[]> foo = crit.list();
+		for(Object[] result: foo) {
+			log.warn(result[0] + ": " + result[1]);
+			forms.add((Form)result[0]);
+		}
+		
+		return forms;
 	}
 
 }

@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>amrscustomization</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<packaging>pom</packaging>
 	<name>AMRS Customization</name>
 	<description>Parent project for AMRS Customization</description>
@@ -71,7 +71,7 @@
 	</dependencyManagement>
 
 	<properties>
-		<openMRSVersion>1.8.0-SNAPSHOT</openMRSVersion>
+		<openMRSVersion>1.8.2</openMRSVersion>
 	</properties>
 
 	<build>

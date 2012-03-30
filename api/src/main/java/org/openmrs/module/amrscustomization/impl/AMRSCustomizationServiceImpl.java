@@ -19,7 +19,9 @@ import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Form;
 import org.openmrs.GlobalProperty;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.ServiceContext;
@@ -119,4 +121,11 @@ public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
     public HL7InQueue getNextPrioritizedHL7InQueue() {
         return dao.getNextPrioritizedHL7InQueue();
     }
+
+    /**
+     * @see AMRSCustomizationService#getPopularRecentFormsForUser(User)
+     */
+	public List<Form> getPopularRecentFormsForUser(User user) {
+		return dao.getPopularRecentFormsForUser(user);
+	}
 }
