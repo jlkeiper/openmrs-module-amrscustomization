@@ -60,7 +60,6 @@
 	</bean>
 	
 	<bean id="customConceptDrugForm" class="org.openmrs.module.amrscustomization.web.controller.CustomConceptDrugFormController">
-		<property name="sessionForm"><value>true</value></property>
 		<property name="commandName"><value>drug</value></property>
 		<property name="formView"><value>/module/amrscustomization/customConceptDrugForm</value></property>
 		<property name="successView"><value>conceptDrug.list</value></property>
