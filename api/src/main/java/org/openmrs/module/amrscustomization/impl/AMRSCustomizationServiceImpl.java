@@ -15,14 +15,20 @@ package org.openmrs.module.amrscustomization.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Concept;
+import org.openmrs.ConceptName;
+import org.openmrs.ConceptProposal;
 import org.openmrs.Form;
 import org.openmrs.GlobalProperty;
+import org.openmrs.Obs;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
+import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.ServiceContext;
 import org.openmrs.hl7.HL7InQueue;
@@ -31,15 +37,13 @@ import org.openmrs.module.amrscustomization.AMRSCustomizationConstants;
 import org.openmrs.module.amrscustomization.AMRSCustomizationDAO;
 import org.openmrs.module.amrscustomization.AMRSCustomizationService;
 import org.openmrs.module.amrscustomization.MRNGeneratorLogEntry;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.openmrs.util.OpenmrsConstants;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
  * implementation of the AMRS Customization service
  */
-@Controller
-@RequestMapping("module/amrscustomization/settings.htm")
 public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
 
     protected Log log = LogFactory.getLog(getClass());
@@ -128,4 +132,57 @@ public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
 	public List<Form> getPopularRecentFormsForUser(User user) {
 		return dao.getPopularRecentFormsForUser(user);
 	}
-}
+
+	/**
+	 * @see AMRSCustomzationService#mapConceptProposalToConcept(org.openmrs.ConceptProposal,
+	 *      org.openmrs.Concept, java.util.locale)
+	 */
+	public Concept mapConceptProposalToConcept(ConceptProposal cp, Concept mappedConcept, Locale locale) throws APIException {
+		ConceptService cs = Context.getConceptService();
+		
+		if (cp.getState().equals(OpenmrsConstants.CONCEPT_PROPOSAL_REJECT)) {
+			cp.rejectConceptProposal();
+			cs.saveConceptProposal(cp);
+			return null;
+		}
+		
+		if (mappedConcept == null)
+			throw new APIException("Illegal Mapped Concept");
+		
+		if (cp.getState().equals(OpenmrsConstants.CONCEPT_PROPOSAL_CONCEPT) || !StringUtils.hasText(cp.getFinalText())) {
+			cp.setState(OpenmrsConstants.CONCEPT_PROPOSAL_CONCEPT);
+			cp.setFinalText("");
+		} else if (cp.getState().equals(OpenmrsConstants.CONCEPT_PROPOSAL_SYNONYM)) {
+			
+			cs.checkIfLocked();
+			
+			String finalText = cp.getFinalText();
+			ConceptName conceptName = new ConceptName(finalText, null);
+			conceptName.setConcept(mappedConcept);
+			conceptName.setLocale(locale == null ? Context.getLocale() : locale);
+			conceptName.setDateCreated(new Date());
+			conceptName.setCreator(Context.getAuthenticatedUser());
+			mappedConcept.addName(conceptName);
+			mappedConcept.setChangedBy(Context.getAuthenticatedUser());
+			mappedConcept.setDateChanged(new Date());
+			cs.updateConceptWord(mappedConcept);
+		}
+		
+		cp.setMappedConcept(mappedConcept);
+		
+		if (cp.getObsConcept() != null) {
+			Obs ob = new Obs();
+			ob.setEncounter(cp.getEncounter());
+			ob.setConcept(cp.getObsConcept());
+			ob.setValueCoded(cp.getMappedConcept());
+			ob.setCreator(Context.getAuthenticatedUser());
+			ob.setDateCreated(new Date());
+			ob.setObsDatetime(cp.getEncounter().getEncounterDatetime());
+			ob.setLocation(cp.getEncounter().getLocation());
+			ob.setPerson(cp.getEncounter().getPatient());
+			ob.setUuid(UUID.randomUUID().toString());
+			cp.setObs(ob);
+		}
+		
+		return mappedConcept;
+	}}

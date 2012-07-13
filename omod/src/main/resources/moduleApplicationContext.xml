@@ -55,6 +55,7 @@
 		<property name="mappings">
 			<props>
 				<prop key="admin/concepts/conceptDrug.form">customConceptDrugForm</prop>
+				<prop key="admin/concepts/conceptProposal.form">customConceptProposalForm</prop>
 			</props>
 		</property>
 	</bean>
@@ -65,4 +66,11 @@
 		<property name="successView"><value>conceptDrug.list</value></property>
 	</bean>
 	
+	<bean id="customConceptProposalForm"
+		class="org.openmrs.module.amrscustomization.web.controller.CustomConceptProposalFormController">
+		<property name="commandName"><value>conceptProposal</value></property>
+		<property name="formView"><value>/admin/concepts/conceptProposalForm</value></property>
+		<property name="successView"><value>conceptProposal.list</value></property>
+	</bean>
+
 </beans>

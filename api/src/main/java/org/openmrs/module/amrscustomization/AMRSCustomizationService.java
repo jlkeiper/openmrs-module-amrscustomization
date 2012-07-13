@@ -14,10 +14,14 @@
 package org.openmrs.module.amrscustomization;
 
 import java.util.List;
+import java.util.Locale;
+import org.openmrs.Concept;
+import org.openmrs.ConceptProposal;
 import org.openmrs.Form;
 import org.openmrs.User;
 
 import org.openmrs.annotation.Authorized;
+import org.openmrs.api.APIException;
 import org.openmrs.hl7.HL7InQueue;
 import org.openmrs.hl7.HL7Source;
 import org.openmrs.util.PrivilegeConstants;
@@ -72,4 +76,20 @@ public interface AMRSCustomizationService {
 	 */
     @Transactional(readOnly = true)
 	public List<Form> getPopularRecentFormsForUser(User user);
+	
+	/**
+	 * Maps a concept proposal to a concept -- stolen from ConceptService.
+	 * 
+	 * @param cp
+	 * @param mappedConcept
+	 * @param locale of concept proposal
+	 * @return the mappedConcept
+	 * @throws APIException
+	 * @should not require mapped concept on reject action
+	 * @should allow rejecting proposals
+	 * @should throw APIException when mapping to null concept
+	 */
+	@Authorized(PrivilegeConstants.MANAGE_CONCEPTS)
+	public Concept mapConceptProposalToConcept(ConceptProposal cp, Concept mappedConcept, Locale locale) throws APIException;
+	
 }
