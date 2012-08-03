@@ -14,6 +14,8 @@
 package org.openmrs.module.amrscustomization;
 
 import java.util.List;
+
+import org.openmrs.Cohort;
 import org.openmrs.Form;
 import org.openmrs.User;
 
@@ -51,4 +53,6 @@ public interface AMRSCustomizationDAO {
      * @see org.openmrs.module.amrscustomization.AMRSCustomizationService#getPopularRecentFormsForUser(User)
      */
 	public List<Form> getPopularRecentFormsForUser(User user);
+
+    public Cohort getPersonIds();
 }

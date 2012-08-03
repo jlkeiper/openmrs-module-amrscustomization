@@ -15,10 +15,8 @@ package org.openmrs.module.amrscustomization;
 
 import java.util.List;
 import java.util.Locale;
-import org.openmrs.Concept;
-import org.openmrs.ConceptProposal;
-import org.openmrs.Form;
-import org.openmrs.User;
+
+import org.openmrs.*;
 
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
@@ -91,5 +89,8 @@ public interface AMRSCustomizationService {
 	 */
 	@Authorized(PrivilegeConstants.MANAGE_CONCEPTS)
 	public Concept mapConceptProposalToConcept(ConceptProposal cp, Concept mappedConcept, Locale locale) throws APIException;
+
+    @Transactional(readOnly = true)
+    Cohort getPersonIds();
 	
 }

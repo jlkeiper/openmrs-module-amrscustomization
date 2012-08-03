@@ -13,17 +13,13 @@
  */
 package org.openmrs.module.amrscustomization.db;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.*;
+import org.openmrs.Cohort;
 import org.openmrs.Encounter;
 import org.openmrs.Form;
 import org.openmrs.User;
@@ -161,5 +157,42 @@ public class HibernateAMRSCustomizationDAO implements AMRSCustomizationDAO {
 		
 		return forms;
 	}
+
+    @SuppressWarnings("unchecked")
+    public Cohort getPersonIds(){
+        Set<Integer> patientids = new HashSet<Integer>();
+        try{
+            Query queryPersonIds = sessionFactory.getCurrentSession().createQuery
+                    (
+                            " SELECT p.personId "
+                                    +" FROM Person p, PersonAddress pa"
+                                    +" WHERE "
+                                    +"p.personId=pa.person "
+                                    +"and "
+                                    + "(pa.latitude LIKE 'N%' or pa.latitude LIKE 'S%' ) "
+                                    +"and "
+                                    +"pa.latitude is not null "
+                                    +"and "
+                                    +"pa.longitude  is not null  "
+                                    +"and "
+                                    +"pa.latitude != '' "
+                                    +"and "
+                                    +"pa.longitude  != ''  "
+                                    +"and "
+                                    +" p.voided =0"
+                    );
+
+
+
+            patientids.addAll(queryPersonIds.list());
+        }
+        catch (HibernateException hibernateException) {
+
+            hibernateException.printStackTrace();
+        }
+
+        return new Cohort("All person ids", "", patientids);
+    }
+
 
 }

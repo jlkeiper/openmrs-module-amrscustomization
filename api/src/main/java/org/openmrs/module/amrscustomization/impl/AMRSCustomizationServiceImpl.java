@@ -20,13 +20,7 @@ import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Concept;
-import org.openmrs.ConceptName;
-import org.openmrs.ConceptProposal;
-import org.openmrs.Form;
-import org.openmrs.GlobalProperty;
-import org.openmrs.Obs;
-import org.openmrs.User;
+import org.openmrs.*;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
@@ -185,4 +179,9 @@ public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
 		}
 		
 		return mappedConcept;
-	}}
+	}
+    public Cohort getPersonIds() {
+
+        return dao.getPersonIds();
+    }
+}
