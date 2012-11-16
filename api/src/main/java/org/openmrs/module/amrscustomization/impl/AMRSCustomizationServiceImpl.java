@@ -152,6 +152,9 @@ public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
 			
 			String finalText = cp.getFinalText();
 			ConceptName conceptName = new ConceptName(finalText, null);
+			//If this is pre 1.9
+			if(conceptName.getUuid() == null)
+				conceptName.setUuid(UUID.randomUUID().toString());
 			conceptName.setConcept(mappedConcept);
 			conceptName.setLocale(locale == null ? Context.getLocale() : locale);
 			conceptName.setDateCreated(new Date());
@@ -166,6 +169,9 @@ public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
 		
 		if (cp.getObsConcept() != null) {
 			Obs ob = new Obs();
+			//If this is pre 1.9
+			if(ob.getUuid() == null)
+				ob.setUuid(UUID.randomUUID().toString());
 			ob.setEncounter(cp.getEncounter());
 			ob.setConcept(cp.getObsConcept());
 			ob.setValueCoded(cp.getMappedConcept());
@@ -174,7 +180,6 @@ public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
 			ob.setObsDatetime(cp.getEncounter().getEncounterDatetime());
 			ob.setLocation(cp.getEncounter().getLocation());
 			ob.setPerson(cp.getEncounter().getPatient());
-			ob.setUuid(UUID.randomUUID().toString());
 			cp.setObs(ob);
 		}
 		
