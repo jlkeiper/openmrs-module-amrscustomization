@@ -82,13 +82,14 @@ public class CustomConceptProposalFormController extends SimpleFormController {
 		} else {
 			// Set the state of the concept according to the button pushed
 			if (cp.getMappedConcept() == null)
-				errors.rejectValue("mappedConcept", "ConceptProposal.mappedConcept.error");
+				errors.rejectValue("mappedConcept", "amrscustomization.ConceptProposal.mappedConcept.error");
 			else {
-				if (action.equals(msa.getMessage("ConceptProposal.saveAsConcept"))) {
+				String proposalAction = request.getParameter("actionToTake");
+				if (proposalAction.equals("createObsAndIgnoreProposal")) {
 					cp.setState(OpenmrsConstants.CONCEPT_PROPOSAL_CONCEPT);
-				} else if (action.equals(msa.getMessage("ConceptProposal.saveAsSynonym"))) {
+				} else if (proposalAction.equals("saveAsSynonym")) {
 					if (cp.getMappedConcept() == null)
-						errors.rejectValue("mappedConcept", "ConceptProposal.mappedConcept.error");
+						errors.rejectValue("mappedConcept", "amrscustomization.ConceptProposal.mappedConcept.error");
 					if (!StringUtils.hasText(cp.getFinalText()))
 						errors.rejectValue("finalText", "error.null");
 					cp.setState(OpenmrsConstants.CONCEPT_PROPOSAL_SYNONYM);
