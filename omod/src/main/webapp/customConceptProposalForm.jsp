@@ -194,6 +194,13 @@
 			</spring:bind>
 		</td>
 	</tr>
+    <tr>
+        <th><spring:message code="amrscustomization.ConceptProposal.actionToTake"/></th>
+        <td>
+            <input type="radio" name="actionToTake" value="saveAsSynonym" checked="checked"> <spring:message code="ConceptProposal.saveAsSynonym"/>
+            <input type="radio" name="actionToTake" value="createObsAndIgnoreProposal"> <spring:message code="amrscustomization.ConceptProposal.createObsAndIgnoreProposal"/>
+        </td>
+    </tr>
 </table>
 <br />
 <!-- TODO create some sort of mechanism to scroll through the encounters -->
@@ -202,9 +209,8 @@
 	<br/>
 </c:if>
 <br />
+<input type="submit" name="action" value="<spring:message code="general.submit"/>">
 <input type="submit" name="action" value="<spring:message code="ConceptProposal.ignore"/>">
-<input type="submit" name="action" value="<spring:message code="ConceptProposal.saveAsConcept"/>">
-<input type="submit" name="action" value="<spring:message code="ConceptProposal.saveAsSynonym"/>">
 <input type="submit" name="action" value="<spring:message code="general.cancel"/>">
 </form>
 
