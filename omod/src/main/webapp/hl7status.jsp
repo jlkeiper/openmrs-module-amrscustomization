@@ -1,7 +1,7 @@
 <%@ page import="org.openmrs.api.context.Context" %><%@ page import="org.openmrs.hl7.HL7InQueue" %><%@ page import="java.util.Date" %><%
 Integer WARNING_LEVEL = 45;
 Integer CRITICAL_LEVEL = 120;
-String ALLOWED_IPS = ",41.191.226.125,192.168.5.231,134.68.31.227,";
+String ALLOWED_IPS = ",41.191.226.125,192.168.5.231,134.68.31.227,10.50.80.153,";
 String USERNAME = "hl7_monitor"; // user with only "View HL7 Inbound Queue" privilege
 String PASSWORD = "oICu812!";
 
