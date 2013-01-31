@@ -198,7 +198,7 @@
         <th><spring:message code="amrscustomization.ConceptProposal.actionToTake"/></th>
         <td>
             <input type="radio" name="actionToTake" value="saveAsSynonym" checked="checked"> <spring:message code="ConceptProposal.saveAsSynonym"/>
-            <input type="radio" name="actionToTake" value="createObsAndIgnoreProposal"> <spring:message code="amrscustomization.ConceptProposal.createObsAndIgnoreProposal"/>
+            <input type="radio" name="actionToTake" value="saveAsMapped"> <spring:message code="amrscustomization.ConceptProposal.saveAsMapped"/>
         </td>
     </tr>
 </table>

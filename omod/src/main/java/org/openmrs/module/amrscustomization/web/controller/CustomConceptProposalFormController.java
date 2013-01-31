@@ -13,19 +13,6 @@
  */
 package org.openmrs.module.amrscustomization.web.controller;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.Vector;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
@@ -37,7 +24,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.amrscustomization.AMRSCustomizationService;
 import org.openmrs.notification.Alert;
 import org.openmrs.notification.AlertService;
-import org.openmrs.util.LocaleUtility;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.PrivilegeConstants;
 import org.openmrs.web.WebConstants;
@@ -49,6 +35,18 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
 
 public class CustomConceptProposalFormController extends SimpleFormController {
 	
@@ -85,7 +83,7 @@ public class CustomConceptProposalFormController extends SimpleFormController {
 				errors.rejectValue("mappedConcept", "amrscustomization.ConceptProposal.mappedConcept.error");
 			else {
 				String proposalAction = request.getParameter("actionToTake");
-				if (proposalAction.equals("createObsAndIgnoreProposal")) {
+				if (proposalAction.equals("saveAsMapped")) {
 					cp.setState(OpenmrsConstants.CONCEPT_PROPOSAL_CONCEPT);
 				} else if (proposalAction.equals("saveAsSynonym")) {
 					if (cp.getMappedConcept() == null)
@@ -136,7 +134,9 @@ public class CustomConceptProposalFormController extends SimpleFormController {
 			
 			// all of the proposals to map
 			List<ConceptProposal> allProposals = cs.getConceptProposals(cp.getOriginalText());
-			
+			//this concept proposal isn't in the list since we changed its state in processFormSubmission
+			allProposals.add(cp);
+
 			// The users to be alerted of this change
 			Set<User> uniqueProposers = new HashSet<User>();
 			String sLocale = request.getParameter("conceptNamelocale");
@@ -244,7 +244,7 @@ public class CustomConceptProposalFormController extends SimpleFormController {
 		map.put("defaultVerbose", defaultVerbose.equals("true") ? true : false);
 		map.put("states", OpenmrsConstants.CONCEPT_PROPOSAL_STATES());
 		map.put("matchingProposals", matchingProposals);
-		map.put("locales", LocaleUtility.getLocalesInOrder());
+		map.put("locales", Context.getAdministrationService().getAllowedLocales());
 		
 		return map;
 	}
