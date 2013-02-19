@@ -51,6 +51,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.Vector;
 
 public class CustomConceptProposalFormController extends SimpleFormController {
@@ -198,6 +199,8 @@ public class CustomConceptProposalFormController extends SimpleFormController {
 						ob.setObsDatetime(conceptProposal.getEncounter().getEncounterDatetime());
 						ob.setLocation(conceptProposal.getEncounter().getLocation());
 						ob.setPerson(conceptProposal.getEncounter().getPatient());
+						if(ob.getUuid() == null)
+							ob.setUuid(UUID.randomUUID().toString());
 						cp.setObs(ob);
 					}
 				}

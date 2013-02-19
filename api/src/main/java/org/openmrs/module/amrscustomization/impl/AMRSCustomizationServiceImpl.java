@@ -32,6 +32,7 @@ import org.openmrs.module.amrscustomization.AMRSCustomizationDAO;
 import org.openmrs.module.amrscustomization.AMRSCustomizationService;
 import org.openmrs.module.amrscustomization.MRNGeneratorLogEntry;
 import org.openmrs.util.OpenmrsConstants;
+import org.openmrs.validator.ValidateUtil;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
@@ -153,16 +154,16 @@ public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
 			
 			String finalText = cp.getFinalText();
 			conceptName = new ConceptName(finalText, null);
-			//If this is pre 1.9
-			if(conceptName.getUuid() == null)
-				conceptName.setUuid(UUID.randomUUID().toString());
 			conceptName.setConcept(mappedConcept);
 			conceptName.setLocale(locale == null ? Context.getLocale() : locale);
 			conceptName.setDateCreated(new Date());
 			conceptName.setCreator(Context.getAuthenticatedUser());
+			if(conceptName.getUuid() == null)
+				conceptName.setUuid(UUID.randomUUID().toString());
 			mappedConcept.addName(conceptName);
 			mappedConcept.setChangedBy(Context.getAuthenticatedUser());
 			mappedConcept.setDateChanged(new Date());
+			ValidateUtil.validate(mappedConcept);
 			cs.updateConceptWord(mappedConcept);
 		}
 		
@@ -170,9 +171,6 @@ public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
 		
 		if (cp.getObsConcept() != null) {
 			Obs ob = new Obs();
-			//If this is pre 1.9
-			if(ob.getUuid() == null)
-				ob.setUuid(UUID.randomUUID().toString());
 			ob.setEncounter(cp.getEncounter());
 			ob.setConcept(cp.getObsConcept());
 			ob.setValueCoded(cp.getMappedConcept());
@@ -183,13 +181,15 @@ public class AMRSCustomizationServiceImpl implements AMRSCustomizationService {
 			ob.setObsDatetime(cp.getEncounter().getEncounterDatetime());
 			ob.setLocation(cp.getEncounter().getLocation());
 			ob.setPerson(cp.getEncounter().getPatient());
+			if(ob.getUuid() == null)
+				ob.setUuid(UUID.randomUUID().toString());
 			cp.setObs(ob);
 		}
 		
 		return mappedConcept;
 	}
-    public Cohort getPersonIds() {
 
+    public Cohort getPersonIds() {
         return dao.getPersonIds();
     }
 }
